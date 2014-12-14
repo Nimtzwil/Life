@@ -1,4 +1,3 @@
-//#include <iostream>
 #include <vector>
 #include <string>
 
@@ -259,6 +258,7 @@ void render(int & curX, int & curY, std::vector< std::vector<bool> > & current, 
     }
 }
 
+//main body of game
 int main() {
     int width = 60;
     int height = width;
@@ -272,11 +272,13 @@ int main() {
     bool hidden = false;
     int time = 0;
 
+//render initial state
     render(cursorX,cursorY,Universe,hidden,time);
 
+//keeps game going
     while ( !TCODConsole::isWindowClosed() ) {
-//        TCOD_key_t key = TCODConsole::waitForKeypress(true);
         TCOD_key_t key;
+//check if key has been pressed
         TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key,NULL);
         switch(key.vk) {
 //up
@@ -345,7 +347,8 @@ int main() {
 //default
             default:break;
         }
-//std::cout << "Y: " << cursorY << std::endl;
+
+//handle cursor wrapping (% was giving issues when going to -1)
         if (cursorY >= height)
             cursorY = cursorY - height;
         else if (cursorY < 0)
@@ -356,8 +359,10 @@ int main() {
         else if (cursorX < 0)
             cursorX = cursorX + width;
 
+//render current state
         render(cursorX,cursorY,Universe,hidden,time);
 
+//flush the screen buffer
         TCODConsole::flush();
     }
 
