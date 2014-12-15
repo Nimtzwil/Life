@@ -59,6 +59,13 @@ void render(int & curX, int & curY, std::vector< std::vector<bool> > & current, 
         TCODConsole::root->setCharForeground(curX,curY,TCODColor::blue);
     }
 
+//menu background
+    for (unsigned int I = current.size()-2; I <= current.size()+9; I++){
+        for (unsigned int J = 0; J <= current.size()-3; J++){
+            TCODConsole::root->setCharBackground(I, J, TCODColor::darkestGrey);
+        }
+    }
+
 //vertical lines
     for (unsigned int J = 1; J < current.size()-3; J++){
         TCODConsole::root->setChar(current.size()-2,J,186);
